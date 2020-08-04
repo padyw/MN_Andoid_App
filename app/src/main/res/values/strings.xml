@@ -26,5 +26,19 @@
     <string name="password_hint">Enter Password</string>
     <string name="login">Login</string>
     <string name="refresh">Refresh</string>
+    <string name="login_success">Login successfully</string>
+    <string name="access_token">accessToken</string>
+    <string name="refresh_token">refreshToken</string>
+    <string name="logout">Logout</string>
+    <string name="confirm">Confirm</string>
+    <string name="logout_confirm_msg">Are you sure you want to logout?</string>
+    <string name="delete_confirm_msg">Are you sure you want to Delete?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="is_user_logged_in">isUserLoggedIn</string>
+    <string name="app_legal_notice">C-DAC. All rights reserved</string>
+    <string name="loader">Loader</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
 
 </resources>

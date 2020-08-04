@@ -1,10 +1,12 @@
 package com.cdac.medinfo.mercury;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -97,5 +99,43 @@ public class AccountsViewActivity extends AppCompatActivity implements AccountAd
         Intent intent = new Intent(this, LoginActivity.class);
         intent.putExtra("account", account);
         startActivity(intent);
+    }
+
+    private void deleteAccount(int position){
+
+        Account account =  accountList.get(position);
+        if (account != null && account.getId() != null){
+            Account.deleteAccount(this, account.getId());
+        }
+
+        this.loadAccounts();
+
+    }
+
+    @Override
+    public void onDelete(final int position) {
+
+        Log.e("AccountView onDelete", "" + position);
+        Log.e("AccountView onDelete", "" + accountList.get(position).toString());
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.confirm);
+        builder.setMessage(R.string.delete_confirm_msg);
+
+        builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                deleteAccount(position);
+            }
+        });
+
+        builder.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+
+        builder.show();
     }
 }

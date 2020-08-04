@@ -13,10 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".LoginActivity" android:label="@string/login" ></activity>
-        <activity
-            android:name=".AccountsViewActivity"
-            android:label="@string/accounts">
+        <activity android:name=".LoaderActivity"
+            android:label="@string/loader">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,9 +22,16 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".LoginActivity"
+            android:label="@string/login" />
+        <activity
+            android:name=".AccountsViewActivity"
+            android:label="@string/accounts">
+        </activity>
+        <activity
             android:name=".AddAccountActivity"
             android:label="@string/add_account" />
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity" />
     </application>
 
 </manifest>

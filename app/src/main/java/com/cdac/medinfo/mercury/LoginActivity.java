@@ -1,8 +1,10 @@
 package com.cdac.medinfo.mercury;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.PreferenceManager;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -202,10 +204,26 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
 //                                    saveAccountIntoDatabase(serverURL, loginDetailsDTO);
                                     viewProgressBar.setVisibility(View.GONE);
 
-                                    Toast.makeText(LoginActivity.this, "Login Successfully", Toast.LENGTH_LONG).show();
-                                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                                    startActivity(intent);
-                                    finish();
+                                    try {
+                                        String accessToken = response.getString(getString(R.string.access_token));
+                                        String refreshToken = response.getString(getString(R.string.refresh_token));
+                                        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(LoginActivity.this);
+                                        sharedPreferences
+                                                .edit()
+                                                .putString(getString(R.string.access_token), accessToken)
+                                                .putString(getString(R.string.refresh_token), refreshToken)
+                                                .putBoolean(getString(R.string.is_user_logged_in), true)
+                                                .commit();
+
+                                        Toast.makeText(LoginActivity.this, R.string.login_success, Toast.LENGTH_LONG).show();
+                                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                        startActivity(intent);
+                                        finish();
+
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                        Toast.makeText(LoginActivity.this,  R.string.internal_error, Toast.LENGTH_LONG).show();
+                                    }
 
                                 }
                             },errorListener);
